@@ -44,7 +44,7 @@
 			      
 			      // Display Data Dynamically
 			      $("#current_temp").html(Math.round(json.currently.temperature)+"&#176;F");
-			      $("#current_temp").attr("data-icon", icons.[json.currently.icon]);
+			      $("#current_temp").attr("data-icon", icons.(json.currently.icon));
 			      
 			      $("#current_summary").html(json.currently.summary);
  			      
