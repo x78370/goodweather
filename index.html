@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>[step 2: dynamic display]GOOD Weather</title>
+	<title>[step 3: icons]GOOD Weather</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,6 +14,19 @@
 	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 
 	<script type="text/javascript">
+// Store Icons
+		var icons = {		
+					"clear-day" : "B", 
+ 					"clear-night" : "C", 
+ 					"rain" : "R", 
+					"snow" : "G", 
+					"sleet" : "X", 
+					"wind" : "S", 
+					"fog" :"N", 
+					"cloudy" : "Y",
+					"partly-cloudy-day" : "H", 
+					"partly-cloudy-night" : "I"
+					};
 // Get Weather	
 		function loadWeather(){
  
@@ -31,7 +44,10 @@
 			      
 			      // Display Data Dynamically
 			      $("#current_temp").html(Math.round(json.currently.temperature)+"&#176;F");
+			      $("#current_temp").attr("data-icon", icons.[json.currently.icon]);
+			      
 			      $("#current_summary").html(json.currently.summary);
+ 			      
  			      $("#ozone").html(json.currently.ozone);
 			    },
 			    error: function(e) {
