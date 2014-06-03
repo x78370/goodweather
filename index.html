@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>[step 4: bind cities]GOOD Weather</title>
+	<title>[step 5: geolocation]GOOD Weather</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,6 +35,7 @@
 			"chicago" 	: 	{coords: {latitude: 41.879003, longitude: -87.63675}},
 			"san francisco" : 	{coords: {latitude: 37.788531, longitude: -122.407237}},
 			"miami" 	:	{coords: {latitude: 25.790176, longitude: -80.140133}},
+			"cheney"	:	{coords: {latitude: 47.4886, longitude: 117.5786}},
 			"current location" : ""
 		 };
 					
@@ -45,6 +46,7 @@
 			var latlng = cityCoords.coords.latitude + "," + cityCoords.coords.longitude;
  							
 			var forecastURL = "https://api.forecast.io/forecast/e79ce4f49850f7741774f156ee9198bc/" + latlng;
+			
 			$.ajax({
 			    url: forecastURL,
 			    jsonpCallback: 'jsonCallback',
@@ -74,15 +76,26 @@
  
 			$("#location").html(city);
  
-			loadWeather(cities[city.toLowerCase()]);
+			if (city.toLowerCase() == "current location") {
+				if ( navigator.geolocation )
+					navigator.geolocation.getCurrentPosition(loadWeather,loadDefaultCity);
+				else {
+					loadDefaultCity();
+				}
+ 
+			} else {
+				loadWeather(cities[city.toLowerCase()]);
+			}
  
 		}
 
-		
+		function loadDefaultCity(){
+			loadCity("cheney");
+		}
 		// On Page Load
 		$(document).ready(function(){
 			// Load City, then load weather
-			loadCity("Chicago");
+			loadCity("cheney");
  
 			// Bind click to City
  
